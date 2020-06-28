@@ -7,58 +7,54 @@ of nodes which together represent a sequence.
 """
 
 
-class Node(object):
+class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
 
-class LinkedList(object):
+class LinkedList:
     def __init__(self):
         self.head = None
         self.size = 0
 
-    # operation 1 : Insert at the start of the list
+    # Insert node at the start
     def insert_at_start(self, data):
         new_node = Node(data)
-        self.size += 1
 
-        new_node.next = self.head
-        self.head = new_node
-
-    # operation 2 : Insert at the end of the list
-    def insert_at_end(self, data):
-        new_node = Node(data)
-        self.size += 1
-
-        if self.head is None:
+        if self.head == None:
             self.head = new_node
-            return
-
-        current_node = self.head
-        while current_node.next is not None:
-            current_node = current_node.next
         else:
-            current_node.next = new_node
+            new_node.next = self.head
+            self.head = new_node
 
-    # operation 3 : Insert after a particular value of the list
-    def insert_after_element(self, data, key):
+    # Insert node at the last
+    def insert_at_last(self, data):
         new_node = Node(data)
-        self.size += 1
 
         current_node = self.head
-
-        while current_node.data != key:
+        while current_node.next != None:
             current_node = current_node.next
-        else:
-            new_node.next = current_node.next
-            current_node.next = new_node
+        current_node.next = new_node
 
-    # operation 4 : Remove an element from the list
-    def remove_from_list(self, data):
+    # Insert node at the after a specified value
+    def insert_after(self, data, prev_data):
+        new_node = Node(data)
+        current_node = self.head
+
+        while current_node.data != prev_data:
+            current_node = current_node.next
+
+        new_node.next = current_node.next
+        current_node.next = new_node
+
+    # Remove a specified value from the list
+    def remove_node(self, data):
 
         if self.head is None:
             return
+
         current_node = self.head
+
         prev_node = None
         while current_node.data != data:
             prev_node = current_node
@@ -69,28 +65,24 @@ class LinkedList(object):
         else:
             prev_node.next = current_node.next
 
-    # operation 5 : Traverse through the list
-    def traverse_the_list(self):
+    # Traverse the list
+    def traverse_list(self):
         current_node = self.head
-
-        while current_node:
+        while current_node != None:
             print(current_node.data)
             current_node = current_node.next
 
+obj = LinkedList()
+obj.insert_at_start(10)
+obj.insert_at_last(12)
+obj.insert_at_last(11)
+obj.insert_at_last(17)
+obj.insert_at_start(21)
+obj.insert_at_start(40)
+obj.insert_after(8, 10)
+print("---------------------")
+obj.traverse_list()
 
-list_1 = LinkedList()
-
-list_1.insert_at_start(10)
-list_1.insert_at_start(12)
-list_1.insert_at_end(122)
-list_1.insert_at_end(31)
-list_1.insert_at_start(57)
-list_1.insert_after_element(8, 10)
-list_1.insert_after_element(9, 10)
-print("---------")
-list_1.traverse_the_list()
-
-list_1.remove_from_list(122)
-list_1.remove_from_list(57)
-print("---------")
-list_1.traverse_the_list()
+obj.remove_node(17)
+print("---------------------")
+obj.traverse_list()
