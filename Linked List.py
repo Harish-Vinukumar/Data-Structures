@@ -22,7 +22,7 @@ class LinkedList:
     def insert_at_start(self, data):
         new_node = Node(data)
 
-        if self.head == None:
+        if self.head is None:
             self.head = new_node
         else:
             new_node.next = self.head
@@ -72,6 +72,7 @@ class LinkedList:
         while current_node is not None:
             print(current_node.data)
             current_node = current_node.next
+
 
 obj = LinkedList()
 obj.insert_at_start(10)
